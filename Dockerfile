@@ -1,7 +1,7 @@
 FROM alpine:3
 LABEL AUTHOR="vinid223@gmail.com"
 
-RUN apk add --no-cache python3 curl gcc python3-dev python3-setuptools
+RUN apk add --no-cache python3 curl gcc python3-dev py3-setuptools py3-pip
 RUN pip3 uninstall crcmod
 RUN pip3 install --no-cache-dir -U crcmod
 
