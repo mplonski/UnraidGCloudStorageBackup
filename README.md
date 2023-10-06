@@ -1,9 +1,12 @@
+# This is just a fork.
+
+**This is just a fork. If you're looking for repository for original plugin, go to the [main project](https://github.com/vinid223/GcloudStorage-docker).**
+
+Changes compared to previous version:
+ * script copies whole directory, doesn't create `backup` directory on the cloud storage
+ * crcmod is installed which might make whole operation faster
+
 # gcloud-storage-docker
-
-Note : This repository is maintained on a private Gitlab server and is replicated in realtime on github.
-
-Github repository : https://github.com/vinid223/GcloudStorage-docker
-Docker Hub : https://hub.docker.com/r/vinid223/gcloud-storage-backup
 
 gcloud-storage-docker is a Docker container which backs up one or more folders to Google Cloud Storage using the gsutil tool.
 
