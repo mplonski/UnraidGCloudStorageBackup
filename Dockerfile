@@ -1,12 +1,11 @@
 FROM alpine:3
 LABEL AUTHOR="vinid223@gmail.com"
 
-RUN apk add --no-cache python3 curl
+RUN apk add --no-cache python3 curl gcc python3-dev python3-setuptools
+RUN pip3 uninstall crcmod
+RUN pip3 install --no-cache-dir -U crcmod
 
 RUN curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-396.0.0-linux-x86_64.tar.gz
-
-# ARM
-# RUN curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-396.0.0-linux-arm.tar.gz
 
 RUN tar -xf google-cloud-cli-396.0.0-linux-x86_64.tar.gz
 
