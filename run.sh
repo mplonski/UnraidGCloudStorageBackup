@@ -79,7 +79,7 @@ elif [[ $OPTION = "backup" ]]; then
   fi
 
   log_info "Executing gsutil sync /data/ $GCSPATH..."
-  CLOUDSDK_PYTHON="python3" sh /google-cloud-sdk/bin/gsutil -m rsync -r $GCSOPTIONS /data $GCSPATH >> $LOG 2>&1
+  CLOUDSDK_PYTHON="python3" sh /google-cloud-sdk/bin/gsutil -m rsync -r $GCSOPTIONS /data/backup $GCSPATH >> $LOG 2>&1
   rm -f $LOCKFILE
   log_info "Finished sync: $(date)"
 else
