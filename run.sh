@@ -4,7 +4,6 @@
 OPTION="$1"
 BOTO_FILE=${BOTO_FILE:-"NULL"}
 ACCESS_KEY=${ACCESS_KEY:-"NULL"}
-SECRET_KEY=${SECRET_KEY:-"NULL"}
 GCSPATH=${GCSPATH:?"GCSPATH required"}
 GCSOPTIONS=${GCSOPTIONS}
 CRON_SCHEDULE=${CRON_SCHEDULE:-0 * * * *}
@@ -35,25 +34,9 @@ if [[ $OPTION = "setup" ]]; then
   CRONFILE="/etc/crontabs/root"
   CRONENV=""
 
-  if [[ $BOTO_FILE = "NULL" ]]; then
-    if [[ $ACCESS_KEY = "NULL" ]] || [[ $SECRET_KEY = "NULL" ]]; then
-      echo "ACCESS_KEY and SECRET_KEY must have a value when BOTO_FILE is not set"
-      echo "Exiting"
-      exit 1
-    fi
-
-    echo "Configuring ACCESS KEYS"
-    sed -i "s|replace_gs_access_key_id|$ACCESS_KEY|g" /root/.boto
-    sed -i "s|replace_gs_secret_access_key|$SECRET_KEY|g" /root/.boto
-  else
-    echo "Copy $BOTO_FILE to /root/.boto"
-    cp $BOTO_FILE /root/.boto
-  fi
-
-  echo "Found the following files and directores mounted under /data:"
-  echo ""
-  ls -F /data
-  echo ""
+  echo "Configuring access to Google Cloud..."
+  echo $ACCESS_KEY | base64 -d > /tmp/key.json
+  gcloud auth activate-service-account --key-file=/tmp/key.json
 
   echo "Adding CRON schedule: $CRON_SCHEDULE"
 
