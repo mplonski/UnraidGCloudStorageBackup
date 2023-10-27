@@ -35,7 +35,7 @@ if [[ $OPTION = "setup" ]]; then
 
   echo "Configuring access to Google Cloud..."
   echo $ACCESS_KEY | base64 -d > /tmp/key.json
-  gcloud auth activate-service-account --key-file=/tmp/key.json
+  CLOUDSDK_PYTHON="python3" sh /google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=/tmp/key.json
 
   echo "Adding CRON schedule: $CRON_SCHEDULE"
 
