@@ -29,9 +29,7 @@ echo "Welcome to Google Cloud Storage Docker"
 echo "A backup utility to GCP Bucket"
 
 if [[ $OPTION = "setup" ]]; then
-
   CRONFILE="/etc/crontabs/root"
-  CRONENV=""
 
   echo "Configuring access to Google Cloud..."
   echo $ACCESS_KEY | base64 -d > /tmp/key.json
@@ -42,9 +40,7 @@ if [[ $OPTION = "setup" ]]; then
   rm -f $CRONFILE
   rm -f $LOCKFILE
 
-  CRONENV="$CRONENV GCSPATH=\"$GCSPATH\""
-  CRONENV="$CRONENV GCSOPTIONS=\"$GCSOPTIONS\""
-  echo "$CRON_SCHEDULE $CRONENV sh /opt/run.sh backup" >> $CRONFILE
+  echo "$CRON_SCHEDULE sh /opt/run.sh backup" >> $CRONFILE
   echo "Starting CRON scheduler: $(date)"
   cat $CRONFILE
   crond
